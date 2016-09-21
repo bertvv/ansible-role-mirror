@@ -1,5 +1,11 @@
 ---
 - hosts: all
   become: true
+  vars:
+    mirror_sources:
+      - distro: centos
+        rsync_server: rsync.belnet.be
+        version: 7
   roles:
+    - bertvv.httpd
     - mirror
