@@ -5,3 +5,6 @@ mirror_root_directory: "/srv/mirror"
 mirror_sources: []
 mirror_owner: 'root'
 mirror_group: 'root'
+
+mirror_start_hour: 2
+mirror_start_minutes: 0

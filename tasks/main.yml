@@ -22,13 +22,6 @@
   with_items: "{{ mirror_sources }}"
   tags: mirror
 
-#- name: Synchronize distros
-  #command: rsync --archive --sparse --hard-links --copy-links --delete --partial --progress --verbose --exclude 'isos*' {{ item.rsync_server }}::{{ item.distro }}/{{ item.version }} {{ mirror_root_directory }}/{{ item.distro }}
-  #args:
-    #creates: "{{ mirror_root_directory }}/{{ item.distro }}/{{ item.version }}"
-  #with_items: "{{ mirror_sources }}"
-#  #tags: mirror
-
 - name: Make mirror available through web server
   template:
     src: httpd_mirror.conf
@@ -47,4 +40,14 @@
     owner: root
     group: root
     mode: '0744'
+  tags: mirror
+
+- name: Add cron job for mirror script
+  cron:
+    hour: "{{ mirror_start_hour }}"
+    minute: "{{ mirror_start_minutes }}"
+    job: /usr/local/bin/mirror
+    name: mirror
+    cron_file: /etc/crontab
+    user: root
   tags: mirror
