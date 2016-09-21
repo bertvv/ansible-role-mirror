@@ -1,16 +1,41 @@
 # roles/mirror/tasks/main.yml
 ---
 
-- name: Install packages
-  yum:
-    pkg: "{{ item }}"
-    state: installed
-  with_items: "{{ mirror_packages }}"
+- name: Ensure mirror root directory exists
+  file:
+    name: "{{ mirror_root_directory }}"
+    state: directory
+    owner: "{{ mirror_owner }}"
+    group: "{{ mirror_group }}"
+    mode: '0755'
+    setype: public_content_t
   tags: mirror
 
-- name: Ensure service is started
-  service:
-    name: "{{ mirror_service }}"
-    state: started
-    enabled: true
+- name: Ensure directories for distros exist
+  file:
+    name: "{{ mirror_root_directory }}/{{ item.distro }}"
+    state: directory
+    owner: "{{ mirror_owner }}"
+    group: "{{ mirror_group }}"
+    mode: '0755'
+    setype: public_content_t
+  with_items: "{{ mirror_sources }}"
+  tags: mirror
+
+#- name: Synchronize distros
+  #command: rsync --archive --sparse --hard-links --copy-links --delete --partial --progress --verbose --exclude 'isos*' {{ item.rsync_server }}::{{ item.distro }}/{{ item.version }} {{ mirror_root_directory }}/{{ item.distro }}
+  #args:
+    #creates: "{{ mirror_root_directory }}/{{ item.distro }}/{{ item.version }}"
+  #with_items: "{{ mirror_sources }}"
+#  #tags: mirror
+
+- name: Make mirror available through web server
+  template:
+    src: httpd_mirror.conf
+    dest: "{{ mirror_conf }}"
+    owner: root
+    group: root
+    mode: '0644'
+    setype: 'httpd_config_t'
+  notify: restart httpd
   tags: mirror
