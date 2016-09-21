@@ -1,0 +1,7 @@
+# roles/mirror/vars/main.yml
+---
+
+mirror_packages:
+  - mirror
+
+mirror_service: mirrord

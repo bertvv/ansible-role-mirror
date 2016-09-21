@@ -1,0 +1,16 @@
+# roles/mirror/tasks/main.yml
+---
+
+- name: Install packages
+  yum:
+    pkg: "{{ item }}"
+    state: installed
+  with_items: "{{ mirror_packages }}"
+  tags: mirror
+
+- name: Ensure service is started
+  service:
+    name: "{{ mirror_service }}"
+    state: started
+    enabled: true
+  tags: mirror
