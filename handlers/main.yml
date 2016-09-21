@@ -1,7 +1,0 @@
-# roles/mirror/handlers/main.yml
----
-
-- name: restart mirror
-  service:
-    name: "{{ mirror_service }}"
-    state: restarted
