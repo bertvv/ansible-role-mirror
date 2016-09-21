@@ -1,4 +1,7 @@
 # roles/mirror/defaults/main.yml
 ---
 
-
+mirror_root_directory: "/srv/mirror"
+mirror_sources: []
+mirror_owner: 'root'
+mirror_group: 'root'

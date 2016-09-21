@@ -1,7 +1,5 @@
 # roles/mirror/vars/main.yml
 ---
 
-mirror_packages:
-  - mirror
+mirror_conf: /etc/httpd/conf.d/mirror.conf
 
-mirror_service: mirrord
