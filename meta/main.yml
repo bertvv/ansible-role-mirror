@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Bert Van Vreckem
-  description: PURPOSE
+  description: Ansible role for creating local mirrors for OS updates and installations
   license: BSD
   min_ansible_version: 2.0
   platforms:
@@ -10,4 +10,5 @@ galaxy_info:
         - 7
   galaxy_tags:
     - system
-dependencies: []
+dependencies:
+  - bertvv.httpd

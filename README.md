@@ -1,8 +1,9 @@
 # Ansible role `mirror`
 
-An Ansible role for PURPOSE. Specifically, the responsibilities of this role are to:
+Ansible role for creating local mirrors for OS updates and installations. Specifically, the responsibilities of this role are to:
 
--
+- Download and synchronize with upstream repositories
+- Set up a cron job for keeping the local mirror up-to-date
 
 ## Requirements
 
@@ -11,17 +12,17 @@ No specific requirements
 ## Role Variables
 
 
-| Variable   | Required | Default | Comments (type)  |
-| :---       | :---     | :---    | :---             |
-| `role_var` | no       | -       | (scalar) PURPOSE |
+| Variable         | Required | Default | Comments (type)  |
+| :---             | :---     | :---    | :---             |
+| `mirror_sources` | no       | []      | (scalar) PURPOSE |
 
 ## Dependencies
 
-No dependencies.
+- [bertvv.httpd](https://galaxy.ansible.com/bertvv/httpd/)
 
 ## Example Playbook
 
-See the [test playbook](tests/test.yml)
+See the [test playbook](https://github.com/bertvv/ansible-role-mirror/blob/tests/test.yml)
 
 ## Testing
 
@@ -44,5 +45,5 @@ Issues, feature requests, ideas are appreciated and can be posted in the Issues 
 
 ## Contributors
 
-- [Bert Van Vreckem](https://github.com/bertvv/) (maintainer:)
+- [Bert Van Vreckem](https://github.com/bertvv/) (maintainer)
 
