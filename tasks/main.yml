@@ -39,3 +39,12 @@
     setype: 'httpd_config_t'
   notify: restart httpd
   tags: mirror
+
+- name: Install mirror script
+  template:
+    src: mirror.sh
+    dest: "{{ mirror_script }}"
+    owner: root
+    group: root
+    mode: '0744'
+  tags: mirror

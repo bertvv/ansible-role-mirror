@@ -2,4 +2,4 @@
 ---
 
 mirror_conf: /etc/httpd/conf.d/mirror.conf
-
+mirror_script: /usr/local/bin/mirror
