@@ -27,9 +27,13 @@ main() {
   lock "${script_name}" \
     || die "An instance of ${script_name} is already running."
 
+  log "Starting mirroring distros: {% for source in mirror_sources %}{{ source.distro }} {{ source.version }}{% if loop.last %}.{% else %}, {% endif %}{% endfor %}"
+
 {% for source in mirror_sources %}
   synchronize {{ source.rsync_server }} {{ source.distro }} {{ source.version }}
 {% endfor %}
+
+  log "Mirroring finished"
 }
 
 ### Helper functions
